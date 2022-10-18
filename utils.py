@@ -66,7 +66,7 @@ class LiteDB:
         for row in result:
             return row[0]
 
-    def select_dataset_data(self, name, num=4):
+    def select_dataset_data(self, name, num=1):
         """ 搜索某个数据集里的全部信息 """
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
@@ -74,14 +74,14 @@ class LiteDB:
             f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
         return list(result)
 
-    def select_dataset_row(self, name, id, num=4):
+    def select_dataset_row(self, name, id, num=1):
         """ 搜索数据集里的其中一条数据 """
         c = self.conn.cursor()
         result = c.execute(
             f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE sound_id = {id}")
         return list(result)[0]
 
-    def select_output_data(self, name, num=4):
+    def select_output_data(self, name, num=1):
         """ 搜索指定数据集要导出的数据 """
         result_dict = {}
         c = self.conn.cursor()
